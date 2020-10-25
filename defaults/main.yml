@@ -1,0 +1,7 @@
+---
+docker_user: ubuntu
+docker_version_docker_compose: 1.27.4
+docker_additional_service_opts: |
+  {}
+
+ansible_python_interpreter: /usr/bin/python3
