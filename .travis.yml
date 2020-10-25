@@ -19,7 +19,7 @@ script:
   - echo "Ansible syntax check"
   - ansible-playbook --syntax-check tests/role.yml
   - ansible-playbook -v --diff tests/role.yml
-  - ansible-playbook -v --D tests/role.yml
+  - ansible-playbook -v -D tests/role.yml
   - >
     ansible-playbook tests/role.yml --check
     | grep -q 'changed=0.*failed=0'
