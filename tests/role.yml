@@ -4,18 +4,18 @@
     - role: 'ansible-role-docker'
       become: true
   vars:
-  docker_version_docker_compose: 1.27.4
-  docker_user: "ubuntu"
-  docker_additional_service_opts: |
-    {
-      "exec-opts": ["native.cgroupdriver=systemd"],
-      "log-driver": "json-file",
-      "log-opts": {
-        "max-size": "100m"
-      },
-      "storage-driver": "overlay2"
-      }
-  
+    docker_version_docker_compose: 1.27.4
+    docker_user: "ubuntu"
+    docker_additional_service_opts: |
+      {
+        "exec-opts": ["native.cgroupdriver=systemd"],
+        "log-driver": "json-file",
+        "log-opts": {
+          "max-size": "100m"
+        },
+        "storage-driver": "overlay2"
+        }
+
   tasks:
     - name: 'Check that the docker.pid exists'
       stat:
