@@ -10,7 +10,7 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - trusty
+        - bionic
   galaxy_tags:
     - docker
     - ubuntu

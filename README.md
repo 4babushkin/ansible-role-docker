@@ -1,4 +1,6 @@
 docker
 ======
 
-[![Build Status](https://img.shields.io/travis/4babushkin/ansible-role-docker/master.svg?style=flat-square)](https://travis-ci.org/4babushkin/ansible-role-docker)
+
+[![Build Status](https://travis-ci.com/4babushkin/ansible-role-docker.svg?branch=main)](https://travis-ci.com/4babushkin/ansible-role-docker)
+
