@@ -1,0 +1,56 @@
+---
+- hosts: 'localhost'
+  roles:
+    - role: 'ansible-role-docker'
+      become: true
+  vars:
+    pip_package: python3-pip
+    pip_executable: "{{ 'pip3' if pip_package.startswith('python3') else 'pip' }}"
+    pip_install_packages:
+      - name: docker
+      # - name: docker-py
+
+  tasks:
+    - name: 'Check that the docker.pid exists'
+      stat:
+        path: /run/docker.pid
+      register: stat_result
+      failed_when: not stat_result.stat.exists
+
+    - name: 'Result of check docker.pid'
+      debug:
+        msg: 'Docker started'
+      when: stat_result.stat.exists
+
+    - name: Ensure Pip is installed.
+      become: true
+      package:
+        name: "{{ pip_package }}"
+        state: present
+
+    - name: Ensure pip_install_packages are installed.
+      become: true
+      pip:
+        name: "{{ item.name | default(item) }}"
+        version: "{{ item.version | default(omit) }}"
+        virtualenv: "{{ item.virtualenv | default(omit) }}"
+        state: "{{ item.state | default(omit) }}"
+        executable: "{{ pip_executable }}"
+      with_items: "{{ pip_install_packages }}"
+
+
+    - name: 'Pull in the latest nginx container'
+      become: true
+      docker_image:
+        name: 'nginx:latest'
+      when: stat_result.stat.exists
+
+    - name: 'Start the nginx container'
+      become: true
+      docker_container:
+        name: 'nginx'
+        image: 'nginx:latest'
+        state: 'started'
+        ports:
+          - "80:80"
+      when: stat_result.stat.exists
