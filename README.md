@@ -44,3 +44,22 @@ Use it in a playbook as follows:
         "storage-driver": "overlay2"
         }
 ```
+
+## Пробую тест роли через molecule
+
+Prerequisites (Ubuntu): gcc, python-dev
+• pip install ansible
+• pip install molecule
+• pip install docker-py
+
+
+python3 -m pip install --user "molecule[docker,lint]"
+
+
+molecule init role <name role>
+molecule init scenario -r ansible-role-docker -d docker
+
+
+molecule test --destroy=never
+
+molecule converge -- -vv --tags docker_compose_only

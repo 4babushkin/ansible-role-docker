@@ -1,0 +1,14 @@
+---
+- name: Install Docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: "{{ docker_compose_path }}"
+    mode: "a+x"
+
+
+- name: Create symlink to docker-compose
+  file:
+    src: "{{ docker_compose_path }}"
+    dest: "/usr/bin/docker-compose"
+    state: "link"
+
